@@ -76,7 +76,7 @@ public class Main
 	
 	public static DiscordApi login()
 	{
-		api = new DiscordApiBuilder()
+	 	api = new DiscordApiBuilder()
 				.setToken("NDE3NzQyMjU2NTYxMzI0MDQy.DktBdw.TRjYLeE6-0DKqa9x0tGcSPZQl9Q")
 				.login()
 				.join();
