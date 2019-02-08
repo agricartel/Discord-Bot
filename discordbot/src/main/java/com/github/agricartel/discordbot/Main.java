@@ -2,7 +2,9 @@ package com.github.agricartel.discordbot;
 
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
+import org.javacord.api.entity.activity.Activity;
 import org.javacord.api.entity.activity.ActivityType;
+import org.javacord.api.util.logging.ExceptionLogger;
 
 public class Main
 {
@@ -42,30 +44,30 @@ public class Main
         });
 
 
-//        api.addUserChangeActivityListener(event -> {
-//        	
-//        	if (event.getUser().isBotOwner()) {
-//        		
-//        		if(event.getOldActivity().map(Activity::getType).orElse(null) != event.getNewActivity().map(Activity::getType).orElse(null)) {
-//        			
-//        			//System.out.println("Ye");
-//        			if (event.getNewActivity().map(Activity::getType).orElse(null) == ActivityType.STREAMING) {
-//        				
-//        				//System.out.println("Yeye");
-//        				api
-//        					.getServerById("297818419930071040")
-//        					.flatMap(server -> server.getTextChannelById("297818419930071040"))
-//        					.ifPresent(channel -> channel
-//        							.sendMessage("Agric Artel is streaming on Twitch! https://www.twitch.tv/agricartel")
-//        					.exceptionally(ExceptionLogger.get()));
-//        				
-//        			}
-//        			
-//        		}
-//        		
-//        	}
-//        	
-//        });
+        api.addUserChangeActivityListener(event -> {
+        	
+        	if (event.getUser().isBotOwner()) {
+        		
+        		if(event.getOldActivity().map(Activity::getType).orElse(null) != event.getNewActivity().map(Activity::getType).orElse(null)) {
+        			
+        			//System.out.println("Ye");
+        			if (event.getNewActivity().map(Activity::getType).orElse(null) == ActivityType.STREAMING) {
+        				
+        				//System.out.println("Yeye");
+        				api
+        					.getServerById("297818419930071040")
+        					.flatMap(server -> server.getTextChannelById("297818419930071040"))
+        					.ifPresent(channel -> channel
+        							.sendMessage("Agric Artel is streaming on Twitch! https://www.twitch.tv/agricartel")
+        					.exceptionally(ExceptionLogger.get()));
+        				
+        			}
+        			
+        		}
+        		
+        	}
+        	
+        });
         
         
         
