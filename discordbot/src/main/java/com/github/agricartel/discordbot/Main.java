@@ -32,42 +32,58 @@ public class Main
         });
         api.addMessageCreateListener(event -> {
         	
-            if (event.getMessage().getContent().toLowerCase().contains("i hate ")) {
-            	
-                System.out.println(event.getMessage().getAuthor());
-                event.getMessage().getServer().ifPresent(server ->
-                event.getMessage().getUserAuthor().ifPresent(user ->
-                server.updateNickname(user, "test")));
+            if (event.getMessage().getContent().toLowerCase().contains("!time ")) {
+            	String timeString = event.getMessage().getContent().substring(6);
+                System.out.println(event.getMessage().getAuthor() + " " + timeString);
+                String hours = timeString.substring(0,2);
+                String mins = timeString.substring(2,4);
+                int h = Integer.parseInt(hours);
+                int m = Integer.parseInt(mins);
+                System.out.println(h + " " + m);
+                String hF = String.format("%tH : %tM", h,m);
+                String mF = "";
+                if (h < 10) {
+                	if (m < 10) {
+                		hF = String.format("%tH : %tM", h,m);
+                	}
+                } else if(m < 10) {
+                	hF = String.format("%d : %01d", h,m);
+                } else {
+                	hF = String.format("%d : %d", h,m);
+                }
+                
+                
+                event.getChannel().sendMessage("Eastern Standard Time:: " + hF + "\nLinefeed");
                 
             }
             
         });
 
 
-        api.addUserChangeActivityListener(event -> {
-        	
-        	if (event.getUser().isBotOwner()) {
-        		
-        		if(event.getOldActivity().map(Activity::getType).orElse(null) != event.getNewActivity().map(Activity::getType).orElse(null)) {
-        			
-        			//System.out.println("Ye");
-        			if (event.getNewActivity().map(Activity::getType).orElse(null) == ActivityType.STREAMING) {
-        				
-        				//System.out.println("Yeye");
-        				api
-        					.getServerById("297818419930071040")
-        					.flatMap(server -> server.getTextChannelById("297818419930071040"))
-        					.ifPresent(channel -> channel
-        							.sendMessage("Agric Artel is streaming on Twitch! https://www.twitch.tv/agricartel")
-        					.exceptionally(ExceptionLogger.get()));
-        				
-        			}
-        			
-        		}
-        		
-        	}
-        	
-        });
+//        api.addUserChangeActivityListener(event -> {
+//        	
+//        	if (event.getUser().isBotOwner()) {
+//        		
+//        		if(event.getOldActivity().map(Activity::getType).orElse(null) != event.getNewActivity().map(Activity::getType).orElse(null)) {
+//        			
+//        			//System.out.println("Ye");
+//        			if (event.getNewActivity().map(Activity::getType).orElse(null) == ActivityType.STREAMING) {
+//        				
+//        				//System.out.println("Yeye");
+//        				api
+//        					.getServerById("297818419930071040")
+//        					.flatMap(server -> server.getTextChannelById("297818419930071040"))
+//        					.ifPresent(channel -> channel
+//        							.sendMessage("Agric Artel is streaming on Twitch! https://www.twitch.tv/agricartel")
+//        					.exceptionally(ExceptionLogger.get()));
+//        				
+//        			}
+//        			
+//        		}
+//        		
+//        	}
+//        	
+//        });
         
         
         
